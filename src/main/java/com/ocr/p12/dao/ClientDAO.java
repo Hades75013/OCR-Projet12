@@ -26,5 +26,5 @@ public interface ClientDAO  extends JpaRepository<Client,Integer> {
 
     @Override
     void delete(Client client);
-    
+
 }
