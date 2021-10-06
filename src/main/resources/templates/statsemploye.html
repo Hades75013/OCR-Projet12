@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}"
+>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+
+    <title>Statistiques de l'employé</title>
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+
+
+    <div id="stats_employe" class="container">
+
+        <div class="table-responsive col-lg-12 col-md-10 col-xs-9">
+            <div id="titreTableau"><h4><strong> STATISTIQUES DE L'EMPLOYE </strong></h4></div>
+            <h4><strong><span th:text="${employe.nom}"></span> <span th:text="${employe.prenom}"></span></strong></h4>
+
+            <table data-toggle="table" data-show-columns="true" data-pagination="true" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th data-sortable = "true" data-field = "nbHeuresTotal">Nb d'heures total</th>
+                    <th data-sortable = "true" data-field = "nbHeuresAnnuel">Nb d'heures annuel</th>
+                    <th data-sortable = "true" data-field = "nbHeuresMensuel">Nb d'heures mensuel</th>
+                    <th data-sortable = "true" data-field = "nbHeuresHebdomadaire">Nb d'heures hebdomadaire</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${nbHeuresTotal}"></td>
+                    <td th:text="${nbHeuresAnnuel}"></td>
+                    <td th:text="${nbHeuresMensuel}"></td>
+                    <td th:text="${nbHeuresHebdomadaire}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>

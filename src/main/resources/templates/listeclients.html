@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+
+        layout:decorate="~{accueil}"
+>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+
+    <title>Liste des clients</title>
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+
+
+    <div id="liste_clients" class="container">
+
+        <div class="table-responsive col-lg-12 col-md-10 col-xs-9">
+            <div id="titreTableau"><h4><strong> LISTE DES CLIENTS </strong></h4></div>
+            <br>
+            <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th data-sortable = "true" data-field = "nom">Nom</th>
+                    <th data-sortable = "true" data-field = "prenom">Prénom</th>
+                    <th data-sortable = "true" data-field = "raisonSociale">Raison sociale</th>
+                    <th>Modifier client</th>
+                    <th>Supprimer client</th>
+                    <th>Ajouter vacation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="client:${listeClients}">
+                    <td th:text="${client.nom}"></td>
+                    <td th:text="${client.prenom}"></td>
+                    <td th:text="${client.raisonSociale}"></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{modifierClient(idClient=${client.id})}"><span class="glyphicon glyphicon-cog"></span></a></td>
+                    <td sec:authorize="isAuthenticated()"><a onclick="return confirm('Etes-vous sûr de vouloir supprimer ce client ?')" th:href="@{supprimerClient(idClient=${client.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{ajouterEvenement(idClient=${client.id})}"><span class="glyphicon glyphicon-plus"></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>

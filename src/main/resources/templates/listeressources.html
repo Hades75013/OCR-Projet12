@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+        layout:decorate="~{accueil}">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Liste des ressources</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <br>
+
+
+    <div id="liste_employes_button" class="container">
+        <form class="form-inline" th:action="@{listeEmployes}" method="get">
+            <button class="btn btn-primary"><strong>MES EMPLOYES</strong></button>
+        </form>
+    </div>
+
+    <div id="liste_evenements_button" class="container">
+        <form class="form-inline" th:action="@{listeEvenements}" method="get">
+            <button class="btn btn-primary"><strong>MES VACATIONS</strong></button>
+        </form>
+    </div>
+
+    <div id="liste_clients_button" class="container">
+        <form class="form-inline" th:action="@{listeClients}" method="get">
+            <button class="btn btn-primary"><strong>MES CLIENTS</strong></button>
+        </form>
+    </div>
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+
+</body>
+</html>

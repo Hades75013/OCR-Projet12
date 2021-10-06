@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Formulaire modifier client</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="container">
+
+        <div class="spacer col-lg-4 col-md-4 col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Modification d'un client</h4></div>
+                <div class="panel-body">
+                    <form th:action="@{saveModifClient(id=${client.id})}" method="post">
+                        <div class="form-group">
+                            <label class="control-label">Nom :</label>
+                            <input class="form-control" type="text" name="nom" th:value="${client.nom}" required/>
+                            <span class="red" th:errors="${client.nom}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Prénom :</label>
+                            <input class="form-control" type="text" name="prenom" th:value="${client.prenom}" required/>
+                            <span class="red" th:errors="${client.prenom}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Raison sociale :</label>
+                            <input class="form-control" type="text" name="raisonSociale" th:value="${client.raisonSociale}" required/>
+                            <span class="red" th:errors="${client.raisonSociale}"></span>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary"><strong>Modifier client</strong></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>

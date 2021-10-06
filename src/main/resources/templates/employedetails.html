@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}"
+>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Informations complémentaires de l'employé</title>
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+
+
+
+    <div id="ouvrage_details" class="container">
+
+        <div class="table-responsive col-lg-12 col-md-10 col-xs-9">
+            <div id="titreTableau"><h3><strong> DETAILS DE L'EMPLOYE </strong></h3></div>
+            <br>
+            <div><strong><h3><span th:text="${employe.nom}"></span> <span th:text="${employe.prenom}"></span></h3></strong></div>
+            <br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th data-sortable = "true" data-field = "adresse">Adresse</th>
+                    <th data-sortable = "true" data-field = "telephone">Telephone</th>
+                    <th data-sortable = "true" data-field = "noCartePro">No de carte pro</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${employe.adresse}"></td>
+                    <td th:text="${employe.telephone}"></td>
+                    <td th:text="${employe.noCartePro}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>

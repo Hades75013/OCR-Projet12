@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+
+        layout:decorate="~{accueil}"
+>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/locale/bootstrap-table-fr-FR.min.js"></script>
+
+    <title>Liste des employés</title>
+</head>
+
+<body>
+
+
+<section layout:fragment="content">
+
+
+    <div id="liste_employes" class="container">
+
+        <div class="table-responsive col-lg-12 col-md-10 col-xs-9">
+            <div id="titreTableau"><h4><strong> LISTE D'EMPLOYES </strong></h4></div>
+            <br>
+            <table data-toggle="table" data-search="true" data-show-columns="true" data-pagination="true" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th data-sortable = "true" data-field = "nom">Nom</th>
+                    <th data-sortable = "true" data-field = "prenom">Prénom</th>
+                    <th data-sortable = "true" data-field = "fonction">Fonction</th>
+                    <th>Plus d'infos</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                    <th>Planning</th>
+                    <th>Statistiques</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employe:${listeEmployes}">
+                    <td th:text="${employe.nom}"></td>
+                    <td th:text="${employe.prenom}"></td>
+                    <td th:text="${employe.fonction}"></td>
+                    <td><a th:href="@{employeDetails(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-info-sign"></span></a></td>
+                    <td sec:authorize="isAuthenticated()"><a th:href="@{modifierEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-cog"></span></a></td>
+                    <td sec:authorize="isAuthenticated()"><a onclick="return confirm('Etes-vous sûr de vouloir supprimer cet employé ?')" th:href="@{supprimerEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a th:href="@{planningEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-calendar"></span></a></td>
+                    <td><a th:href="@{listeEvenementsEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-list-alt"></span></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>
