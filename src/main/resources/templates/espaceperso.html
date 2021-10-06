@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+        layout:decorate="~{accueil}">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Espace Perso</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <br>
+
+    <div id="formAjoutEmploye_button" class="container">
+        <form sec:authorize="isAuthenticated()" th:action="@{ajouterEmploye}" method="get">
+            <button class="btn btn-primary"><strong>AJOUTER EMPLOYE</strong></button>
+        </form>
+    </div>
+
+    <div id="formAjoutClient_button" class="container">
+        <form sec:authorize="isAuthenticated()" th:action="@{ajouterClient}" method="get">
+            <button class="btn btn-primary"><strong>AJOUTER CLIENT</strong></button>
+        </form>
+    </div>
+
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+
+</body>
+</html>

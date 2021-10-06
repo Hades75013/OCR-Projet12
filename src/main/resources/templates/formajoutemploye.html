@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Formulaire ajouter employe</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="container">
+
+        <div class="spacer col-lg-4 col-md-4 col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Ajout d'un employe</h4>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{saveEmploye}" method="post">
+                        <div class="form-group">
+                            <label class="control-label">Nom :</label>
+                            <input class="form-control" type="text" name="nom" th:value="${employe.nom}" required/>
+                            <span class="red" th:errors="${employe.nom}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Prénom :</label>
+                            <input class="form-control" type="text" name="prenom" th:value="${employe.prenom}" required/>
+                            <span class="red" th:errors="${employe.prenom}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Fonction :</label>
+                            <input class="form-control" type="text" name="fonction" th:value="${employe.fonction}" required/>
+                            <span class="red" th:errors="${employe.fonction}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Adresse :</label>
+                            <input class="form-control" type="text" name="adresse" th:value="${employe.adresse}" required/>
+                            <span class="red" th:errors="${employe.adresse}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Téléphone :</label>
+                            <input class="form-control" type="text" name="telephone" th:value="${employe.telephone}" required/>
+                            <span class="red" th:errors="${employe.telephone}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Numéro Carte Pro :</label>
+                            <input class="form-control" type="text" name="noCartePro" th:value="${employe.noCartePro}" required/>
+                            <span class="red" th:errors="${employe.noCartePro}"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary"><strong>Ajouter employé</strong></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Formulaire modifier évènement</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="container">
+
+        <div class="spacer col-lg-4 col-md-4 col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Modification d'un évènement</h4></div>
+                <div class="panel-body">
+                    <form th:action="@{saveModifEvenement(id=${evenement.id})}" method="post">
+                        <div class="form-group">
+                            <label class="control-label">Nom du client :</label>
+                            <input class="form-control" type="text" name="nomClient" th:value="${evenement.client.nom}" readonly="readonly" required/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Titre :</label>
+                            <input class="form-control" type="text" name="titre" th:value="${evenement.titre}" required/>
+                            <span class="red" th:errors="${evenement.titre}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Adresse :</label>
+                            <input class="form-control" type="text" name="adresse" th:value="${evenement.adresse}" required/>
+                            <span class="red" th:errors="${evenement.adresse}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Date de début :</label>
+                            <input class="form-control" type="datetime-local" name="dateDebut" th:value="${evenement.dateDebut}" required/>
+                            <span class="red" th:errors="${evenement.dateDebut}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Date de fin :</label>
+                            <input class="form-control" type="datetime-local" name="dateFin" th:value="${evenement.dateFin}" required/>
+                            <span class="red" th:errors="${evenement.dateFin}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Durée en heure :</label>
+                            <input class="form-control" type="text" name="duree" th:value="${evenement.duree}" required/>
+                            <span class="red" th:errors="${evenement.duree}"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary"><strong>Modifier évènement</strong></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{accueil}">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <title>Confirmation ajout employe</title>
+</head>
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="container">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <span class="messageOK"><strong>L'agent <span th:text="${employe.nom}"></span> <span th:text="${employe.prenom}"></span> a bien été ajouté à votre liste d'employés !</strong></span>
+            </div>
+
+            <div class="panel-body">
+                <label>Pour rappel, voici ses informations personnelles :</label><br>
+                <label>Fonction</label><br>
+                <label th:text="${employe.fonction}"></label><br>
+                <label>Adresse</label><br>
+                <label th:text="${employe.adresse}"></label><br>
+                <label>Téléphone</label><br>
+                <label th:text="${employe.telephone}"></label><br>
+                <label>Numéro Carte Pro</label><br>
+                <label th:text="${employe.noCartePro}"></label><br>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p layout:fragment="footer"></p>
+</footer>
+
+</body>
+</html>
