@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/fullcalendar/main.js"></script>
+    <script src="/fullcalendar/fullcalendar.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/fullcalendar/main.css"  />
+    <title>Planning</title>
+</head>
+
+<body>
+<div id="calendrier"></div>
+
+<div id="event-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Formulaire Attribuer Vacation</h3>
+            </div>
+
+            <strong><h3>
+                <div class="container" id="nomEmploye" th:value="${employe.nom}" th:text="${employe.nom}"></div>
+                <div class="container" id="prenomEmploye" th:value="${employe.prenom}" th:text="${employe.prenom}"></div>
+            </h3></strong>
+
+
+            <form id="AttribuerEvenementForm" name="event" role="form">
+                <div class="modal-body">
+
+                    <select id="selectEvenement" th:field="*{listeEvenementsNonAttribues}">
+                        <option th:each="evenement:${listeEvenementsNonAttribues}" th:value="${evenement.id}" th:text="${evenement.titre}+'  /  '+${evenement.dateDebut}+'  /  '+${evenement.dateFin}">
+                        </option>
+                    </select>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <input type="submit" class="btn btn-success" id="submit">
+                </div>
+            </form>
+
+            <input type="hidden" name="idEmploye" id="idEmploye"  th:value="${employe.id}" >
+
+
+
+        </div>
+    </div>
+</div>
+
+<div id="response"></div>
+
+
+</body>
+</html>

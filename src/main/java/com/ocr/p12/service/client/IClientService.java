@@ -15,6 +15,4 @@ public interface IClientService {
 
     Optional<Client> recupererUnClient(int idClient);
 
-
-    Optional<Client> recupererUnClientParNom(String nomClient);
 }

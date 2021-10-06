@@ -36,8 +36,5 @@ public class IClientServiceImpl implements IClientService{
         return clientDAO.findById(idClient);
     }
 
-    @Override
-    public Optional<Client> recupererUnClientParNom(String nomClient) {
-        return clientDAO.findByNom(nomClient);
-    }
+
 }
