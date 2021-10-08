@@ -8,7 +8,7 @@
 ## Développement
 
 Cette application a été développée avec :
-- Eclipse
+- IntelliJ
 - Java 11
 - Tomcat 9
 - MySQL (version 5.7)
