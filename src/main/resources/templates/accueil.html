@@ -43,7 +43,6 @@
 <div id="onglets" class="container">
     <nav>
         <ul class="nav nav-pills ">
-            <li sec:authorize="!isAuthenticated()"><a th:href="@{inscription}"><strong>S'INSCRIRE</strong></a></li>
             <li sec:authorize="!isAuthenticated()"><a th:href="@{connection}"><strong>SE CONNECTER</strong></a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{consulterRessources}"><strong>CONSULTER LES RESSOURCES</strong></a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{espacePerso}"><strong>ESPACE PERSO</strong></a></li>

@@ -35,8 +35,5 @@ public class IEmployeServiceImpl implements IEmployeService {
         return employeDAO.findById(idEmploye);
     }
 
-    @Override
-    public Double nombreHeuresTotalParEmploye(int idEmploye) {
-        return employeDAO.findTotalHourByEmployeId(idEmploye);
-    }
+    
 }

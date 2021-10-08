@@ -18,6 +18,11 @@
 <section layout:fragment="content">
 
     <br>
+    <div id="formAjoutUtilisateur_button" class="container">
+        <form sec:authorize="isAuthenticated()" th:action="@{ajouterUtilisateur}" method="get">
+            <button class="btn btn-primary"><strong>AJOUTER UTILISATEUR</strong></button>
+        </form>
+    </div>
 
     <div id="formAjoutEmploye_button" class="container">
         <form sec:authorize="isAuthenticated()" th:action="@{ajouterEmploye}" method="get">
@@ -30,7 +35,6 @@
             <button class="btn btn-primary"><strong>AJOUTER CLIENT</strong></button>
         </form>
     </div>
-
 
 </section>
 

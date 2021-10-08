@@ -43,7 +43,6 @@
                     <th>Modifier</th>
                     <th>Supprimer</th>
                     <th>Planning</th>
-                    <th>Statistiques</th>
 
                 </tr>
                 </thead>
@@ -56,7 +55,6 @@
                     <td sec:authorize="isAuthenticated()"><a th:href="@{modifierEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-cog"></span></a></td>
                     <td sec:authorize="isAuthenticated()"><a onclick="return confirm('Etes-vous sûr de vouloir supprimer cet employé ?')" th:href="@{supprimerEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-trash"></span></a></td>
                     <td><a th:href="@{planningEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-calendar"></span></a></td>
-                    <td><a th:href="@{listeEvenementsEmploye(idEmploye=${employe.id})}"><span class="glyphicon glyphicon-list-alt"></span></a></td>
                 </tr>
                 </tbody>
             </table>

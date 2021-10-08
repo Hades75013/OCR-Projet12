@@ -1,19 +1,12 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
 
-   // On va chercher la div dans le HTML
+   //On va chercher la div dans le HTML
     let calendarEl = document.getElementById('calendrier');
 
-    // On instancie le calendrier
+    //On instancie le calendrier
     let calendar = new FullCalendar.Calendar(calendarEl, {
 
-
-
-
         initialView: 'dayGridMonth',
-
-
 
         headerToolbar: {
             left: 'prev,next,today',
@@ -25,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         timeZone: 'UTC',
 
-
         buttonText: {
             today:    'Aujourd\'hui',
             month:    'Mois',
@@ -35,28 +27,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         },
 
-
         editable: true,
 
+        displayEventEnd: {
+           month: true
+        },
+
+        //Attribution de la vacation à l'employé
         customButtons: {
             addEventButton: {
                 text: 'Attribuer vacation',
                 click: function() {
 
-                    // On affiche le formulaire d'attribution d'evenement
+                    //On affiche le formulaire d'attribution d'evenement
                     $("#event-modal").modal('show');
 
-                    // On soumet le formulaire
+                    //On soumet le formulaire
                      $("#AttribuerEvenementForm").submit(function(event){
 
+                        //On récupère les variables à fournir à l'appel Ajax
                         var idEmploye = $("#idEmploye").val();
                         var idEvenement = $("#selectEvenement").val();
-
                         var nomEmploye = $("#nomEmploye").text();
                         var prenomEmploye = $("#prenomEmploye").text();
 
 
-                        // Appel ajax pour la persistence des données en back
+                        //Appel ajax pour la persistence des données en back
                          $.ajax({
                          type: "POST",
                          url: "attribuerEvenement?idEmploye="+idEmploye,
@@ -66,13 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
                          success: function(data){
                             $("#event-modal").modal('hide');
 
-                            // On récupère l'objet evènement que l'on va ajouter à fullcalendar en front
+                            //On récupère les attributs de l'objet evènement
                             var idEvenement = data.id;
                             var titre = data.titre;
                             var dateDebut = data.dateDebut;
                             var dateFin = data.dateFin;
                             var adresse = data.adresse;
 
+                            //On ajoute l'objet evènement à fullcalendar en front
                             calendar.addEvent({
                                   id: idEvenement,
                                   title: titre,
@@ -103,32 +100,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
 
-
-        //events: evenements,
-
-
-
         eventResize: function(info, revertFunc) {
 
-         console.log(info.event.title + " end is now " + info.event.end+"start is now :"+ info.event.start);
-
-        /* if (!confirm("is this okay?")) {
+         if (!confirm("Voulez-vous modifier les horaires de cette vacation?")) {
            revertFunc();
-         }*/
+         }
 
           modifierEvent(info.event);
-
         },
 
 
         eventDrop: function(info) {
-          console.log(info.event.title + " was dropped on " + info.event.start.toISOString());
 
-         /* if (!confirm("is this okay?")) {
-                    revertFunc();
-                  }*/
-
-          console.log(info.event);
+          if (!confirm("Voulez-vous modifier le jour de cette vacation?")) {
+            revertFunc();
+          }
 
           modifierEvent(info.event);
         }
@@ -137,72 +123,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    // On affiche le calendrier
+    //On affiche le calendrier
     calendar.render();
 
+    //On affiche les vacations de l'employé
     chargerVacationsEmploye(calendar);
 
 
 });
 
-
+//Méthode qui modifie la vacation pour le eventResize et le eventDrop
 function modifierEvent(event) {
 
+  //On récupère les variables à fournir à l'appel ajax
   var id = event.id;
   var dateDebut = event.start.toISOString().slice(0, 19);
   var dateFin = event.end.toISOString().slice(0, 19);
 
-  console.log("id = "+id+" dateDebut = "+dateDebut+" dateFin = "+dateFin);
-
+  //Appel ajax pour la persistence des données en back
   $.ajax({
     type:"POST",
     url:"updateEvenement",
     data:{"idEvenement":id,"dateDebut":dateDebut,"dateFin":dateFin},
-    success:function(msg){
-      console.log(msg);
+    success:function(){
+      alert('La vacation a été modifiée avec succès !');
+
     },
-    error:function(msg){
-      console.log(msg);
-      alert('We are unable to process your request');
+    error:function(){
+      alert('Impossible de modifier la vacation !');
     }
   });
 
 }
 
 
-
+//Methode qui charge toutes les vacations de l'employé
 function chargerVacationsEmploye(calendar) {
 
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            var idEmploye = urlParams.get('idEmploye');
+  //On récupère la variable à fournir à l'appel ajax
+  var queryString = window.location.search;
+  var urlParams = new URLSearchParams(queryString);
+  var idEmploye = urlParams.get('idEmploye');
 
-                 $.ajax({
-                     url: "listeEvenementsEmploye",
-                     type: 'GET',
-                     dataType: 'json',
-                     data: {idEmploye : idEmploye},
-                     success: function(data) {
+     //Appel ajax pour la persistence des données en back
+     $.ajax({
+         url: "listeEvenementsEmploye",
+         type: 'GET',
+         dataType: 'json',
+         data: {idEmploye : idEmploye},
+         success: function(data) {
 
-                         data.forEach((event) => {
-                                    calendar.addEvent({
-                                    id : event.id,
-                                    title: event.titre,
-                                    start: event.dateDebut,
-                                    end: event.dateFin,
-                                    extendedProps: {
-                                        adresse: event.adresse
-                                    },
-                                    allDay : false
-                              });
-                         });
-
-
-                     }
+             data.forEach((event) => {
+                        calendar.addEvent({
+                        id : event.id,
+                        title: event.titre,
+                        start: event.dateDebut,
+                        end: event.dateFin,
+                        extendedProps: {
+                            adresse: event.adresse
+                        },
+                        allDay : false
+                        });
+             });
 
 
-                 });
+         }
 
-             }
+
+     });
+
+}
 
 

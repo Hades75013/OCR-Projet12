@@ -42,7 +42,7 @@ public class WebController {
 
 
 
-
+    //CONTROLLER UTILISATEUR
 
     @GetMapping(value="/accueil")
     public String Accueil (){
@@ -50,7 +50,7 @@ public class WebController {
         return "accueil";
     }
 
-    @GetMapping(value="/inscription")
+    @GetMapping(value="/ajouterUtilisateur")
     public String Inscription (Model model){
 
         model.addAttribute("utilisateur",new Utilisateur());
@@ -93,10 +93,6 @@ public class WebController {
         return "redirect:/Connection";
     }
 
-
-
-
-
     @GetMapping(value="/espacePerso")
     public String EspacePerso (Model model){
 
@@ -110,7 +106,10 @@ public class WebController {
     }
 
     @GetMapping(value="/consulterRessources")
-    public String ConsulterRessources (){
+    public String ConsulterRessources (Model model){
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         return "listeressources";
     }
@@ -119,9 +118,13 @@ public class WebController {
 
 
 
+    //CONTROLLER EMPLOYE
 
     @GetMapping(value="/ajouterEmploye")
     public String ajouterEmploye(Model model) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         model.addAttribute("employe",new Employe());
 
@@ -131,6 +134,9 @@ public class WebController {
 
     @PostMapping(value="saveEmploye")
     public String sauverEmploye(Model model, @Valid Employe employe, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -149,6 +155,9 @@ public class WebController {
     @GetMapping(value="employeDetails")
     public String EmployesDetails (int idEmploye, Model model){
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         Optional<Employe> optionalEmploye=employeService.recupererUnEmploye(idEmploye);
         Employe employe = optionalEmploye.get();
 
@@ -161,6 +170,9 @@ public class WebController {
     @GetMapping(value="modifierEmploye")
     public String modifEmploye(Model model, int idEmploye) {
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         Optional<Employe> optionalEmploye=employeService.recupererUnEmploye(idEmploye);
         Employe employe = optionalEmploye.get();
 
@@ -171,6 +183,9 @@ public class WebController {
 
     @PostMapping(value="saveModifEmploye")
     public String sauverModifEmploye(Model model, @Valid Employe employe, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -187,7 +202,10 @@ public class WebController {
     }
 
     @GetMapping(value="supprimerEmploye")
-    public String supprimerEmploye (int idEmploye) {
+    public String supprimerEmploye (Model model, int idEmploye) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         Optional<Employe> optionalEmploye=employeService.recupererUnEmploye(idEmploye);
         Employe employe = optionalEmploye.get();
@@ -200,6 +218,9 @@ public class WebController {
     @GetMapping(value="listeEmployes")
     public String Employes (Model model){
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         List<Employe> employes = employeService.listeEmployes();
 
         model.addAttribute("listeEmployes", employes);
@@ -210,42 +231,33 @@ public class WebController {
     @GetMapping(value="planningEmploye")
     public String PlanningParEmploye (Model model, @RequestParam(value = "idEmploye") int idEmploye){
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         Optional<Employe> optionalEmploye = employeService.recupererUnEmploye(idEmploye);
         Employe employe = optionalEmploye.get();
 
-        //List<Evenement> listeEvenementsEmploye = evenementService.listeEvenementsEmploye(idEmploye);
         List<Evenement> listeEvenementsNonAttribues = evenementService.listeEvenementsSansEmploye();
 
         model.addAttribute("employe",employe);
-        //model.addAttribute("listeEvenementsEmploye",listeEvenementsEmploye);
         model.addAttribute("listeEvenementsNonAttribues",listeEvenementsNonAttribues);
 
         return "fullcalendar";
     }
 
-    @GetMapping(value="statsEmploye")
-    public String StatistiquesParEmploye (Model model, @RequestParam(value = "idEmploye") int idEmploye){
-
-        Optional<Employe> optionalEmploye = employeService.recupererUnEmploye(idEmploye);
-        Employe employe = optionalEmploye.get();
-
-        Double nbHeuresTotal = employeService.nombreHeuresTotalParEmploye(idEmploye);
-
-        model.addAttribute("employe",employe);
-        model.addAttribute("nbHeuresTotal",nbHeuresTotal);
-
-        return "statsemploye";
-    }
 
 
 
 
 
 
-
+    //CONTROLLER CLIENT
 
     @GetMapping(value="/ajouterClient")
     public String ajouterClient(Model model) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         model.addAttribute("client",new Client());
 
@@ -255,6 +267,9 @@ public class WebController {
 
     @PostMapping(value="saveClient")
     public String sauverClient(Model model, @Valid Client client, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -273,6 +288,9 @@ public class WebController {
     @GetMapping(value="modifierClient")
     public String modifClient(Model model, int idClient) {
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         Optional<Client> optionalClient=clientService.recupererUnClient(idClient);
         Client client = optionalClient.get();
 
@@ -283,6 +301,9 @@ public class WebController {
 
     @PostMapping(value="saveModifClient")
     public String sauverModifClient(Model model, @Valid Client client, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -299,7 +320,10 @@ public class WebController {
     }
 
     @GetMapping(value="supprimerClient")
-    public String supprimerClient (int idClient) {
+    public String supprimerClient (Model model, int idClient) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         Optional<Client> optionalClient=clientService.recupererUnClient(idClient);
         Client client = optionalClient.get();
@@ -311,6 +335,9 @@ public class WebController {
 
     @GetMapping(value="listeClients")
     public String Clients (Model model){
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         List<Client> clients =clientService.listeClients();
 
@@ -325,9 +352,13 @@ public class WebController {
 
 
 
+    //CONTROLLER EVENEMENT
 
     @GetMapping(value="ajouterEvenement")
     public String ajouterEvenement(Model model,@RequestParam(value = "idClient")int idClient) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         model.addAttribute("evenement",new Evenement());
         model.addAttribute("idClient",idClient);
@@ -338,6 +369,9 @@ public class WebController {
 
     @PostMapping(value="saveEvenement")
     public String sauverEvenement(Model model, @Valid Evenement evenement, @RequestParam(value = "idClient")Integer idClient, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -360,6 +394,9 @@ public class WebController {
     @GetMapping(value="modifierEvenement")
     public String modifEvenement(Model model, int idEvenement) {
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         Optional<Evenement> optionalEvenement=evenementService.recupererUnEvenement(idEvenement);
         Evenement evenement = optionalEvenement.get();
 
@@ -370,6 +407,9 @@ public class WebController {
 
     @PostMapping(value="saveModifEvenement")
     public String sauverModifEvenement(Model model, @Valid Evenement evenement, BindingResult bindingResult) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         if(bindingResult.hasErrors()) {
 
@@ -386,7 +426,10 @@ public class WebController {
     }
 
     @GetMapping(value="supprimerEvenement")
-    public String supprimerEvenement (int idEvenement) {
+    public String supprimerEvenement (Model model, int idEvenement) {
+
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
 
         Optional<Evenement> optionalEvenement=evenementService.recupererUnEvenement(idEvenement);
         Evenement evenement = optionalEvenement.get();
@@ -400,20 +443,15 @@ public class WebController {
     @GetMapping(value="listeEvenements")
     public String Evenements (Model model){
 
+        Utilisateur utilisateur = (Utilisateur)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("utilisateur", utilisateur);
+
         List<Evenement> evenements = evenementService.listeEvenement();
 
         model.addAttribute("listeEvenements", evenements);
 
         return "listeevenements";
     }
-
-
-
-
-
-
-
-
 
 
 }

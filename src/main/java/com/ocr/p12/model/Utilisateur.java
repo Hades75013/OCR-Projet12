@@ -33,7 +33,6 @@ public class Utilisateur implements UserDetails {
             name = "role",
             joinColumns = @JoinColumn(name = "id_utilisateur")
     )
-
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Collection<RoleEnum> roles;

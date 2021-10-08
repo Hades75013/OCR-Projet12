@@ -15,5 +15,4 @@ public interface IEmployeService {
 
     Optional<Employe> recupererUnEmploye(int idEmploye);
 
-    Double nombreHeuresTotalParEmploye(int idEmploye);
 }
